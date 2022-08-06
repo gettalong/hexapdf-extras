@@ -1,0 +1,4 @@
+---
+rdoc_options: lib/ README.rdoc --main README.rdoc
+prefix_link_defs: false
+api_template: /api.template
