@@ -1,0 +1,34 @@
+== HexaPDF Extras
+
+This library contains additional functionality that is not provided by the main
+{HexaPDF}[https://hexapdf.gettalong.org] library.
+
+To use it, just <tt>require 'hexapdf-extras'</tt> and it will update the HexaPDF configuration
+settings to make the various extensions available.
+
+
+=== QR code Generator
+
+This extension plugs into the graphic objects and boxes system of HexaPDF and allows one to easily
+create a fully-scalable QR code:
+
+  require 'hexapdf'
+  require 'hexapdf-extras'
+
+  doc = HexaPDF::Document.new
+  canvas = doc.pages.add.canvas
+  canvas.draw(:qrcode, at: [100, 100], size: 200, data: "https://hexapdf.gettalong.org")
+  doc.write('qrcode.pdf')
+
+Underneath the +rqrcode_core+ library is used for actually generating the QR code. The +data+
+argument can be any data that +rqrcode_core+ understands. The other options understood by
++rqrcode_core+ are also supported.
+
+See
+{HexaPDF::Extras::GraphicObject::QRCode}[https://hexapdf-extras.gettalong.org/api/HexaPDF/Extras/GraphicObject/QRCode.html]
+and
+{HexaPDF::Extras::Layout::QRCode}[https://hexapdf-extras.gettalong.org/api/HexaPDF/Extras/Layout/QRCode.html]
+for details.
+
+Note: There was a {bug in poppler}[https://gitlab.freedesktop.org/poppler/poppler/-/issues/1281]
+(already fixed) which leads to invalid rendering in Okular (as of 2022-08-06).
