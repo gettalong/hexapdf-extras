@@ -6,6 +6,8 @@ This library contains additional functionality that is not provided by the main
 To use it, just <tt>require 'hexapdf-extras'</tt> and it will update the HexaPDF configuration
 settings to make the various extensions available.
 
+Note that you need to install the dependencies of the features you use yourself as they are not
+listed in the gem file!
 
 === QR code Generator
 
@@ -20,8 +22,10 @@ create a fully-scalable QR code:
   canvas.draw(:qrcode, at: [100, 100], size: 200, data: "https://hexapdf.gettalong.org")
   doc.write('qrcode.pdf')
 
-Underneath the +rqrcode_core+ library is used for actually generating the QR code. The +data+
-argument can be any data that +rqrcode_core+ understands. The other options understood by
+Underneath the +rqrcode_core+ library is used for actually generating the QR code. This means you
+need to install that library for this extension to work.
+
+The +data+ argument can be any data that +rqrcode_core+ understands. The other options understood by
 +rqrcode_core+ are also supported.
 
 See
