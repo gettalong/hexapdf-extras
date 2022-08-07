@@ -2,4 +2,5 @@
 
 ### Added
 
-* Support for generating QRCodes via the graphic object interface
+* Support for generating QR codes via the graphic object interface
+* Support for QR code boxes for the layout engine

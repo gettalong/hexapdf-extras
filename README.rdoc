@@ -27,7 +27,7 @@ argument can be any data that +rqrcode_core+ understands. The other options unde
 See
 {HexaPDF::Extras::GraphicObject::QRCode}[https://hexapdf-extras.gettalong.org/api/HexaPDF/Extras/GraphicObject/QRCode.html]
 and
-{HexaPDF::Extras::Layout::QRCode}[https://hexapdf-extras.gettalong.org/api/HexaPDF/Extras/Layout/QRCode.html]
+{HexaPDF::Extras::Layout::QRCodeBox}[https://hexapdf-extras.gettalong.org/api/HexaPDF/Extras/Layout/QRCodeBox.html]
 for details.
 
 Note: There was a {bug in poppler}[https://gitlab.freedesktop.org/poppler/poppler/-/issues/1281]
