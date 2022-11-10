@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
-require 'rake'
 require_relative 'lib/hexapdf/extras/version'
 
-PKG_FILES = FileList.new([
-                           'lib/**/*.rb',
-                           'test/**/*.rb',
-                           'Rakefile',
-                           'LICENSE',
-                           'README.rdoc',
-                         ])
+PKG_FILES = Dir.glob([
+                       'lib/**/*.rb',
+                       'test/**/*.rb',
+                       'Rakefile',
+                       'LICENSE',
+                       'README.rdoc',
+                     ])
 
 Gem::Specification.new do |s|
   s.name = 'hexapdf-extras'
