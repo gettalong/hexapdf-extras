@@ -49,10 +49,20 @@ describe HexaPDF::Extras::Layout::QRCodeBox do
       box = create_box(style: {padding: [1, 2], border: {width: [3, 4]}})
       assert(box.fit(100, 100, nil))
       assert_equal(88, box.qr_code.size)
+      assert_equal(100, box.width)
+      assert_equal(96, box.height)
 
       box = create_box(style: {padding: [2, 1], border: {width: [4, 3]}})
       assert(box.fit(100, 100, nil))
       assert_equal(88, box.qr_code.size)
+      assert_equal(96, box.width)
+      assert_equal(100, box.height)
+
+      box = create_box(style: {padding: [5, 5, 5, 0], border: {width: [2, 2, 2, 0]}})
+      assert(box.fit(50, 100, nil))
+      assert_equal(43, box.qr_code.size)
+      assert_equal(50, box.width)
+      assert_equal(57, box.height)
     end
   end
 

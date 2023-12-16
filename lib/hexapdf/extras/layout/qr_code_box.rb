@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'hexapdf/layout/box'
+require 'hexapdf/extras/graphic_object/qr_code'
 
 module HexaPDF
   module Extras
@@ -44,8 +45,9 @@ module HexaPDF
         # Fits the QRCode into the given area.
         def fit(available_width, available_height, _frame)
           super
-          @width = @height = [@width, @height].min
           @qr_code.size = [content_width, content_height].min
+          @width = @qr_code.size + reserved_width
+          @height = @qr_code.size + reserved_height
           @fit_successful = (@width <= available_width && @height <= available_height)
         end
 
