@@ -27,7 +27,7 @@ task publish_files: [:package] do
 end
 
 task :test_all do
-  versions = `rbenv versions --bare | grep -i 2.[67]\\\\\\|3.`.split("\n")
+  versions = `rbenv versions --bare | grep -i 2.[7]\\\\\\|3.`.split("\n")
   versions.each do |version|
     sh "eval \"$(rbenv init -)\"; rbenv shell #{version} && ruby -v && rake test"
   end
