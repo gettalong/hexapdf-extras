@@ -1,3 +1,10 @@
+## 1.1.0 - 2024-01-20
+
+### Added
+
+* Support for generating Swiss QR-bill payment slips
+
+
 ## 1.0.1 - 2023-12-16
 
 ### Fixed

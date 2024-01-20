@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.files = PKG_FILES.to_a
 
   s.require_path = 'lib'
-  s.add_dependency('hexapdf', '~> 0.24')
+  s.add_dependency('hexapdf', '~> 0.36')
   s.add_development_dependency('rqrcode_core', '~> 1.2')
   s.required_ruby_version = '>= 2.5'
 
