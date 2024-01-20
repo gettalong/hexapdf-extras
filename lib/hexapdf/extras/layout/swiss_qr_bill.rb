@@ -529,7 +529,7 @@ module HexaPDF
 
               if @data[:reference_type] != 'NON'
                 info.text(text('Reference'), style: styles[:payment_heading])
-                info.text(@data[:reference], style: styles[:payment_value])
+                info.text(formatted_reference, style: styles[:payment_value])
               end
 
               if @data[:message] || @data[:billing_information]
@@ -606,6 +606,15 @@ module HexaPDF
         def formatted_amount
           a, b = format('%.2f', @data[:amount]).split('.')
           a.gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1 ") << '.' << b
+        end
+
+        # Returns the reference field correctly formatted.
+        def formatted_reference
+          if @data[:reference_type] == 'QRR'
+            "#{@data[:reference][0, 2]} #{@data[:reference][2..-1].gsub(/(.{5})/, '\1 ').strip}"
+          else
+            @data[:reference].gsub(/(.{4})/, '\1 ').strip
+          end
         end
 
         # Creates the content of the QR code using the information provided in #data.

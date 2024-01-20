@@ -236,6 +236,8 @@ describe HexaPDF::Extras::Layout::SwissQRBill do
     it "works with no amount and no debtor" do
       data.delete(:debtor)
       data.delete(:amount)
+      data[:reference_type] = 'SCOR'
+      data[:reference] = 'RF48 5000056789012345'
       assert(@composer.box(:swiss_qr_bill, data: data))
     end
 

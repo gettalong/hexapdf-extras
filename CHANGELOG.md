@@ -3,6 +3,7 @@
 ### Fixed
 
 * Display and validation of IBAN for Swiss QR-bill
+* Display of QRR and SCOR reference data
 
 
 ## 1.1.1 - 2024-01-20
