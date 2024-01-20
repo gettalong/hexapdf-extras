@@ -13,7 +13,7 @@ describe HexaPDF::Extras::Layout::SwissQRBill do
   def data
     @data ||= {
      creditor: {
-       iban: "CH44 3199 9123 0008 8901 2",
+       iban: "CH4431999123000889012",
        name: "Max Muster & Söhne",
        address_line1: "Musterstrasse",
        address_line2: "123",
@@ -62,6 +62,22 @@ describe HexaPDF::Extras::Layout::SwissQRBill do
         assert_invalid_data(data.update(amount: 1_000_000_000), /field :amount/)
         data.update(amount: 0.00)
         assert_equal('NICHT ZUR ZAHLUNG VERWENDEN', create_box(data).data[:message])
+      end
+
+      it "ensures the creditor value exists" do
+        data.delete(:creditor)
+        assert_invalid_data(/:creditor is missing/)
+      end
+
+      it "ensures a correct iban value in the creditor field" do
+        data[:creditor].delete(:iban)
+        assert_invalid_data(/:iban of :creditor is missing/)
+        data[:creditor][:iban] = 'CH44 319 39912300088901 2'
+        assert_invalid_data(/:iban of :creditor.*21/)
+        data[:creditor][:iban] = 'CH4431999123000889013'
+        assert_invalid_data(/:iban of :creditor.*invalid check digits/)
+        data[:creditor][:iban] = 'CH4431999123000889012'
+        assert(create_box(data))
       end
 
       it "sets the address type to structured by default" do

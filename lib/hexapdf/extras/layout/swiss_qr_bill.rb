@@ -66,8 +66,8 @@ module HexaPDF
       #     following elements:
       #
       #     :iban::
-      #         (required) The IBAN of the creditor (21 characters, no spaces, only IBANs for CH or
-      #         LI). Note that the IBAN is not checked for validity.
+      #         (required) The IBAN of the creditor (21 characters, only IBANs for CH or LI). The
+      #         IBAN is only validated with respect to its check digits.
       #
       #     :name::
       #         (required) The name of the creditor (maximum 70 characters).
@@ -262,6 +262,25 @@ module HexaPDF
             raise Error, "Data field :amount must be between 0.01 and 999_999_999.99"
           end
 
+          if !@data[:creditor]
+            raise Error, "Data field :creditor is missing"
+          end
+
+          value = @data[:creditor][:iban]
+          if !value
+            raise Error, "Data field :iban of :creditor is missing"
+          end
+          value.gsub!(/\s+/, '')
+          value.upcase!
+          if value.size != 21
+            raise Error, "Data field :iban of :creditor must contain exactly 21 characters"
+          end
+          # https://en.wikipedia.org/wiki/International_Bank_Account_Number#Validating_the_IBAN
+          result = "#{value[4..-1]}#{value[0, 4]}".gsub(/[A-Z]/) {|c| c.ord - 55 }.to_i % 97
+          unless result == 1
+            raise Error, "Data field :iban of :creditor has invalid check digits"
+          end
+
           validate_address = lambda do |hash|
             hash[:address_type] ||= :structured
             if hash[:address_type] != :structured && hash[:address_type] != :combined
@@ -452,7 +471,7 @@ module HexaPDF
             col.text(text('Receipt'), height: 7.mm, style: styles[:section_heading])
             col.container(height: 56.mm) do |info|
               info.text(text('Account / Payable to'), style: styles[:receipt_heading])
-              info.text("#{@data[:creditor][:iban]}\n#{address(@data[:creditor])}", style: styles[:receipt_value])
+              info.text("#{formatted_iban}\n#{address(@data[:creditor])}", style: styles[:receipt_value])
 
               if @data[:reference_type] != 'NON'
                 info.text(text('Reference'), style: styles[:receipt_heading])
@@ -506,7 +525,7 @@ module HexaPDF
             end
             col.container(height: 85.mm) do |info|
               info.text(text('Account / Payable to'), style: styles[:payment_heading])
-              info.text("#{@data[:creditor][:iban]}\n#{address(@data[:creditor])}", style: styles[:payment_value])
+              info.text("#{formatted_iban}\n#{address(@data[:creditor])}", style: styles[:payment_value])
 
               if @data[:reference_type] != 'NON'
                 info.text(text('Reference'), style: styles[:payment_heading])
@@ -561,6 +580,11 @@ module HexaPDF
         # Returns the correctly localized text for the given string +str+.
         def text(str)
           TEXT_LITERALS.dig(@data[:lang], str) || str
+        end
+
+        # Returns the formatted IBAN.
+        def formatted_iban
+          @data[:creditor][:iban].gsub(/(.{4})/, '\1 ')
         end
 
         # Returns a string containing the formatted address for output using the provided data.

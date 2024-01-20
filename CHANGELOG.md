@@ -1,3 +1,10 @@
+## Unreleased
+
+### Fixed
+
+* Display and validation of IBAN for Swiss QR-bill
+
+
 ## 1.1.1 - 2024-01-20
 
 ### Fixed
