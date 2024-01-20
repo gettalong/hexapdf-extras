@@ -1,3 +1,10 @@
+## 1.1.1 - 2024-01-20
+
+### Fixed
+
+* Swiss QR-bill configuration option location
+
+
 ## 1.1.0 - 2024-01-20
 
 ### Added
