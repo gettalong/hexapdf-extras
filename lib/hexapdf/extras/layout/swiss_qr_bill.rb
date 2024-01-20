@@ -158,7 +158,7 @@ module HexaPDF
       #      amount: 2500.25,
       #      currency: 'CHF',
       #     }
-      #     composer.swiss_qr_bill(data: data, valign: :bottom)
+      #     composer.swiss_qr_bill(data: data, style: {valign: :bottom})
       #   end
       #
       # == References
