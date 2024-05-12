@@ -4,15 +4,7 @@ require 'hexapdf/error'
 require 'hexapdf/layout/box'
 require 'hexapdf/extras/layout'
 
-module HexaPDF::Extras::Layout::NumericMeasurementHelper #:nodoc:
-  refine Numeric do
-    def mm
-      self * 72 / 25.4
-    end
-  end
-end
-
-using HexaPDF::Extras::Layout::NumericMeasurementHelper
+using HexaPDF::Utils
 
 module HexaPDF
   module Extras

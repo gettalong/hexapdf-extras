@@ -3,7 +3,7 @@ require 'hexapdf'
 require 'hexapdf/extras'
 require 'hexapdf/extras/layout/swiss_qr_bill'
 
-using HexaPDF::Extras::Layout::NumericMeasurementHelper
+using HexaPDF::Utils
 
 describe HexaPDF::Extras::Layout::SwissQRBill do
   def create_box(data, **kwargs)
