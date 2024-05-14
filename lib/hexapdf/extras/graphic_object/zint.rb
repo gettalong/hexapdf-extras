@@ -183,35 +183,43 @@ module HexaPDF
         # Draws the Zint::Barcode object onto the given canvas, with the bottom-left corner at the
         # position specified by #at and the size specified by #width and #height.
         def draw(canvas)
+          form = form_xobject(canvas.context.document)
+          canvas.xobject(form, at: @at, width: @width, height: @height)
+        end
+
+        # Creates a Form XObject for the given HexaPDF::Document that contains the visual
+        # representation of the barcode.
+        def form_xobject(document)
           barcode = ::Zint::Barcode.new(**@zint_kws)
           vector = barcode.to_vector
 
           height = vector.height
-          form = canvas.form(vector.width, height) do |form_canvas|
-            form_canvas.fill_color(barcode.bgcolour).rectangle(0, 0, vector.width, height).fill
-            vector.each_rectangle.group_by {|rect| rect.colour }.each do |color, rects|
-              form_canvas.fill_color(COLOR_CODES.fetch(color, barcode.fgcolour))
-              rects.each {|rect| form_canvas.rectangle(rect.x, height - rect.y, rect.width, -rect.height) }
-              form_canvas.fill
-            end
-            vector.each_circle.group_by {|circle| circle.colour }.each do |color, circles|
-              form_canvas.fill_color(COLOR_CODES.fetch(color, barcode.fgcolour))
-              circles.each {|circle| form_canvas.circle(circle.x, height - circle.y, circle.diameter / 2.0) }
-              form_canvas.fill
-            end
-            layout = canvas.context.document.layout
-            vector.each_string do |string|
-              fragment = layout.text_fragments(string.text, font: @font, font_size: string.fsize)[0]
-              x = string.x + case string.halign
-                             when 0 then -fragment.width / 2.0
-                             when 1 then 0
-                             when 2 then -fragment.width
-                             end
-              fragment.draw(form_canvas, x, height - string.y)
-            end
+          form = document.add({Type: :XObject, Subtype: :Form, BBox: [0, 0, vector.width, height]})
+          canvas = form.canvas
+
+          canvas.fill_color(barcode.bgcolour).rectangle(0, 0, vector.width, height).fill
+          vector.each_rectangle.group_by {|rect| rect.colour }.each do |color, rects|
+            canvas.fill_color(COLOR_CODES.fetch(color, barcode.fgcolour))
+            rects.each {|rect| canvas.rectangle(rect.x, height - rect.y, rect.width, -rect.height) }
+            canvas.fill
+          end
+          vector.each_circle.group_by {|circle| circle.colour }.each do |color, circles|
+            canvas.fill_color(COLOR_CODES.fetch(color, barcode.fgcolour))
+            circles.each {|circle| canvas.circle(circle.x, height - circle.y, circle.diameter / 2.0) }
+            canvas.fill
+          end
+          layout = canvas.context.document.layout
+          vector.each_string do |string|
+            fragment = layout.text_fragments(string.text, font: @font, font_size: string.fsize)[0]
+            x = string.x + case string.halign
+                           when 0 then -fragment.width / 2.0
+                           when 1 then 0
+                           when 2 then -fragment.width
+                           end
+            fragment.draw(canvas, x, height - string.y)
           end
 
-          canvas.xobject(form, at: @at, width: @width, height: @height)
+          form
         end
       end
 

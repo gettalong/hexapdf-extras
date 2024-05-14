@@ -41,7 +41,7 @@ Note: There was a {bug in poppler}[https://gitlab.freedesktop.org/poppler/popple
 === Barcode Generator
 
 This extensions provides access to generating nearly any kind of barcode. It taps into the graphic
-objects system of HexaPDF to easily allow creating barcodes:
+objects and boxes system of HexaPDF to easily allow creating barcodes:
 
   require 'hexapdf'
   require 'hexapdf-extras'
@@ -56,6 +56,8 @@ that you need to install the +ruby-zint+ library for this extension to work.
 
 See
 {HexaPDF::Extras::GraphicObject::Zint}[https://hexapdf-extras.gettalong.org/api/HexaPDF/Extras/GraphicObject/Zint.html]
+and
+{HexaPDF::Extras::Layout::ZintBox}[https://hexapdf-extras.gettalong.org/api/HexaPDF/Extras/Layout/ZintBox.html]
 for details.
 
 

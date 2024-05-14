@@ -4,6 +4,7 @@
 
 * Support for generating all kinds of barcodes via ruby-zint and the graphic
   object interface
+* Support for barcode boxes to the layout engine
 
 
 ## 1.1.2 - 2024-01-20
