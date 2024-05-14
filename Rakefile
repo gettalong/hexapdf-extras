@@ -11,6 +11,7 @@ end
 
 CLOBBER << 'webgen-out'
 CLOBBER << 'webgen-tmp'
+CLOBBER << 'coverage'
 
 task default: 'test'
 
