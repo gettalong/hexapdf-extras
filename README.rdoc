@@ -38,6 +38,27 @@ Note: There was a {bug in poppler}[https://gitlab.freedesktop.org/poppler/popple
 (already fixed) which leads to invalid rendering in Okular (as of 2022-08-06).
 
 
+=== Barcode Generator
+
+This extensions provides access to generating nearly any kind of barcode. It taps into the graphic
+objects system of HexaPDF to easily allow creating barcodes:
+
+  require 'hexapdf'
+  require 'hexapdf-extras'
+
+  doc = HexaPDF::Document.new
+  canvas = doc.pages.add.canvas
+  canvas.draw(:barcode, at: [100, 100], width: 300, symbology: :code128, value: "Hello HexaPDF!")
+  doc.write('zint.pdf')
+
+Underneath the +ruby-zint+ library is used which relies on the libzint library via FFI. This means
+that you need to install the +ruby-zint+ library for this extension to work.
+
+See
+{HexaPDF::Extras::GraphicObject::Zint}[https://hexapdf-extras.gettalong.org/api/HexaPDF/Extras/GraphicObject/Zint.html]
+for details.
+
+
 === Swiss QR-bill generator
 
 This extension provides a box class for the document layouting facilities of HexaPDF to easily

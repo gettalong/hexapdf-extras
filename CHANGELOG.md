@@ -1,3 +1,11 @@
+## Unreleased
+
+### Added
+
+* Support for generating all kinds of barcodes via ruby-zint and the graphic
+  object interface
+
+
 ## 1.1.2 - 2024-01-20
 
 ### Fixed

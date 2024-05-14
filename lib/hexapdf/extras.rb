@@ -11,6 +11,8 @@ end
 
 HexaPDF::DefaultDocumentConfiguration['graphic_object.map'][:qrcode] =
   'HexaPDF::Extras::GraphicObject::QRCode'
+HexaPDF::DefaultDocumentConfiguration['graphic_object.map'][:barcode] =
+  'HexaPDF::Extras::GraphicObject::Zint'
 
 HexaPDF::DefaultDocumentConfiguration['layout.boxes.map'][:qrcode] =
   'HexaPDF::Extras::Layout::QRCodeBox'
