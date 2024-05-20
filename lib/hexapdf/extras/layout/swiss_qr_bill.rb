@@ -404,7 +404,7 @@ module HexaPDF
 
           box_fitter.fit(receipt(layout, styles))
           box_fitter.fit(payment(layout, styles, qr_code_cross(canvas.context.document)))
-          unless box_fitter.fit_successful?
+          unless box_fitter.success?
             raise HexaPDF::Error, "The Swiss QR-bill could not be fit"
           end
 
