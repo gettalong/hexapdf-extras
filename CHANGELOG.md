@@ -1,4 +1,4 @@
-## Unreleased
+## 1.2.2 - 2024-06-05
 
 ### Changed
 
