@@ -29,7 +29,7 @@ describe HexaPDF::Extras::Layout::QRCodeBox do
     it "uses the smaller value of width/height for the dimensions if smaller than available_width/height" do
       [{width: 10}, {width: 10, height: 50}, {height: 10}, {width: 50, height: 10}].each do |args|
         box = create_box(**args)
-        assert(box.fit(100, 100, @frame))
+        assert(box.fit(100, 100, @frame).success?)
         assert_equal(10, box.width)
         assert_equal(10, box.height)
         assert_equal(10, box.qr_code.size)
@@ -38,12 +38,12 @@ describe HexaPDF::Extras::Layout::QRCodeBox do
 
     it "uses the smaller value of available_width/height for the dimensions" do
       box = create_box
-      assert(box.fit(10, 20, @frame))
+      assert(box.fit(10, 20, @frame).success?)
       assert_equal(10, box.width)
       assert_equal(10, box.height)
       assert_equal(10, box.qr_code.size)
 
-      assert(box.fit(20, 15, @frame))
+      assert(box.fit(20, 15, @frame).success?)
       assert_equal(15, box.width)
       assert_equal(15, box.height)
       assert_equal(15, box.qr_code.size)
@@ -51,19 +51,19 @@ describe HexaPDF::Extras::Layout::QRCodeBox do
 
     it "takes the border and padding into account for the QR code size" do
       box = create_box(style: {padding: [1, 2], border: {width: [3, 4]}})
-      assert(box.fit(100, 100, @frame))
+      assert(box.fit(100, 100, @frame).success?)
       assert_equal(88, box.qr_code.size)
       assert_equal(100, box.width)
       assert_equal(96, box.height)
 
       box = create_box(style: {padding: [2, 1], border: {width: [4, 3]}})
-      assert(box.fit(100, 100, @frame))
+      assert(box.fit(100, 100, @frame).success?)
       assert_equal(88, box.qr_code.size)
       assert_equal(96, box.width)
       assert_equal(100, box.height)
 
       box = create_box(style: {padding: [5, 5, 5, 0], border: {width: [2, 2, 2, 0]}})
-      assert(box.fit(50, 100, @frame))
+      assert(box.fit(50, 100, @frame).success?)
       assert_equal(43, box.qr_code.size)
       assert_equal(50, box.width)
       assert_equal(57, box.height)
@@ -73,7 +73,7 @@ describe HexaPDF::Extras::Layout::QRCodeBox do
   describe "draw" do
     it "draws the qrcode" do
       box = create_box(width: 10)
-      box.fit(100, 100, @frame)
+      assert(box.fit(100, 100, @frame).success?)
 
       canvas = Minitest::Mock.new
       canvas.expect(:draw, nil, [box.qr_code])

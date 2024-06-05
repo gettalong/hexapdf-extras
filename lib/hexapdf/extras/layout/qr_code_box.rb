@@ -42,16 +42,15 @@ module HexaPDF
           )
         end
 
+        private
+
         # Fits the QRCode into the given area.
-        def fit(available_width, available_height, _frame)
-          super
+        def fit_content(available_width, available_height, _frame)
           @qr_code.size = [content_width, content_height].min
           @width = @qr_code.size + reserved_width
           @height = @qr_code.size + reserved_height
-          @fit_successful = (@width <= available_width && @height <= available_height)
+          fit_result.success! if @width <= available_width && @height <= available_height
         end
-
-        private
 
         # Draws the QR code onto the canvas at position [x, y].
         def draw_content(canvas, x, y)

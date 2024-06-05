@@ -1,3 +1,10 @@
+## Unreleased
+
+### Changed
+
+* Update to support newest HexaPDF version after breaking change
+
+
 ## 1.2.1 - 2024-06-01
 
 ### Changed

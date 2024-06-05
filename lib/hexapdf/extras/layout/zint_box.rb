@@ -43,8 +43,10 @@ module HexaPDF
           @barcode = GraphicObject::Zint.configure(**data)
         end
 
+        private
+
         # Fits the barcode into the given area.
-        def fit(available_width, available_height, frame)
+        def fit_content(available_width, available_height, frame)
           @image ||= @barcode.form_xobject(frame.document)
           super
         end
