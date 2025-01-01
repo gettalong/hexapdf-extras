@@ -1,3 +1,7 @@
+## 1.2.3 - 2025-01-01
+
+* Update to support HexaPDF 1.0.0 and up
+
 ## 1.2.2 - 2024-06-05
 
 ### Changed
