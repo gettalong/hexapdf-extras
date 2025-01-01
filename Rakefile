@@ -3,7 +3,7 @@ require 'rake/testtask'
 require 'rubygems/package_task'
 
 Rake::TestTask.new do |t|
-  t.libs << 'test'
+  t.libs << 'test' << '../hexapdf/lib'
   t.test_files = FileList['test/**/*.rb']
   t.verbose = false
   t.warning = true
