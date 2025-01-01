@@ -4,4 +4,4 @@ gemspec
 gem "rake"
 gem "minitest"
 gem "simplecov"
-gem "rqrcode_core"
+
