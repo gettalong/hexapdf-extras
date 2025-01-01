@@ -74,7 +74,7 @@ describe HexaPDF::Extras::GraphicObject::Zint do
                         [:set_font_and_size, [:F1, 14.0]],
                         [:set_device_gray_non_stroking_color, [0.0]],
                         [:begin_text],
-                        [:set_text_matrix, [1, 0, 0, 1, 67.716, 3.5]],
+                        [:move_text, [67.716, 3.5]],
                         [:show_text, ["test"]],
                         [:end_text]])
     end
@@ -108,7 +108,7 @@ describe HexaPDF::Extras::GraphicObject::Zint do
                         [:set_font_and_size, [:F1, 14.0]],
                         [:set_device_gray_non_stroking_color, [0.0]],
                         [:begin_text],
-                        [:set_text_matrix, [1, 0, 0, 1, 0.216, 0.400002]],
+                        [:move_text, [0.216, 0.400002]],
                         [:show_text, ["1"]],
                         [:set_font_and_size, [:F1, 20.0]],
                         [:move_text, [32.424, 0]],

@@ -19,10 +19,10 @@ Gem::Specification.new do |s|
   s.files = PKG_FILES.to_a
 
   s.require_path = 'lib'
-  s.add_dependency('hexapdf', '~> 0.44')
+  s.add_dependency('hexapdf', '~> 1.0')
   s.add_development_dependency('rqrcode_core', '~> 1.2')
   s.add_development_dependency('ruby-zint', '~> 1.3')
-  s.required_ruby_version = '>= 2.7'
+  s.required_ruby_version = '>= 3.0'
 
   s.author = 'Thomas Leitner'
   s.email = 't_leitner@gmx.at'
