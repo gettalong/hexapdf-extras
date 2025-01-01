@@ -128,30 +128,29 @@ module HexaPDF
       #
       # == Example
       #
-      #   HexaPDF::Composer.create("sample-qr-bill.pdf", margin: 0) do |composer|
-      #     data = {
-      #      lang: :de,
-      #      creditor: {
-      #        iban: "CH44 3199 9123 0008 8901 2",
-      #        name: "Max Muster & Söhne",
-      #        address_line1: "Musterstrasse",
-      #        address_line2: "123",
-      #        postal_code: "8000",
-      #        town: "Seldwyla",
-      #        country: "CH",
-      #      },
-      #      debtor: {
-      #        address_type: :combined,
-      #        name: "Simon Muster",
-      #        address_line1: "Musterstrasse 1",
-      #        address_line2: "8000 Seldwyla",
-      #        country: "CH"
-      #      },
-      #      amount: 2500.25,
-      #      currency: 'CHF',
-      #     }
-      #     composer.swiss_qr_bill(data: data, style: {valign: :bottom})
-      #   end
+      #   #>pdf-composerA5l
+      #   data = {
+      #    lang: :de,
+      #    creditor: {
+      #      iban: "CH44 3199 9123 0008 8901 2",
+      #      name: "Max Muster & Söhne",
+      #      address_line1: "Musterstrasse",
+      #      address_line2: "123",
+      #      postal_code: "8000",
+      #      town: "Seldwyla",
+      #      country: "CH",
+      #    },
+      #    debtor: {
+      #      address_type: :combined,
+      #      name: "Simon Muster",
+      #      address_line1: "Musterstrasse 1",
+      #      address_line2: "8000 Seldwyla",
+      #      country: "CH"
+      #    },
+      #    amount: 2500.25,
+      #    currency: 'CHF',
+      #   }
+      #   composer.swiss_qr_bill(data: data, style: {valign: :bottom})
       #
       # == References
       #
