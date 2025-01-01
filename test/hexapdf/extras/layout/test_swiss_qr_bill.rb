@@ -13,7 +13,7 @@ describe HexaPDF::Extras::Layout::SwissQRBill do
   def data
     @data ||= {
      creditor: {
-       iban: "CH4431999123000889012",
+       iban: +"CH4431999123000889012",
        name: "Max Muster & Söhne",
        address_line1: "Musterstrasse",
        address_line2: "123",
@@ -72,11 +72,11 @@ describe HexaPDF::Extras::Layout::SwissQRBill do
       it "ensures a correct iban value in the creditor field" do
         data[:creditor].delete(:iban)
         assert_invalid_data(/:iban of :creditor is missing/)
-        data[:creditor][:iban] = 'CH44 319 39912300088901 2'
+        data[:creditor][:iban] = +'CH44 319 39912300088901 2'
         assert_invalid_data(/:iban of :creditor.*21/)
-        data[:creditor][:iban] = 'CH4431999123000889013'
+        data[:creditor][:iban] = +'CH4431999123000889013'
         assert_invalid_data(/:iban of :creditor.*invalid check digits/)
-        data[:creditor][:iban] = 'CH4431999123000889012'
+        data[:creditor][:iban] = +'CH4431999123000889012'
         assert(create_box(data))
       end
 
@@ -152,32 +152,32 @@ describe HexaPDF::Extras::Layout::SwissQRBill do
         it "ensures the QRR reference value exists and is valid" do
           data[:reference_type] = 'QRR'
           assert_invalid_data(/:reference must be filled.*QRR/)
-          data[:reference] = 'adsfads'
+          data[:reference] = +'adsfads'
           assert_invalid_data(/:reference for QRR.*27/)
-          data[:reference] = '210000000003139471430009011'
+          data[:reference] = +'210000000003139471430009011'
           assert_invalid_data(/:reference for QRR.*invalid check digit.*7/)
-          data[:reference] = '21000000000313947143000901'
+          data[:reference] = +'21000000000313947143000901'
           assert_equal('7', create_box(data).data[:reference][26])
-          data[:reference] = '210000000 0031394 71430009017'
+          data[:reference] = +'210000000 0031394 71430009017'
           assert(create_box(data))
         end
 
         it "ensures the SCOR reference value exists and is valid" do
           data[:reference_type] = 'SCOR'
           assert_invalid_data(/:reference must be filled.*SCOR/)
-          data[:reference] = 'RF11'
+          data[:reference] = +'RF11'
           assert_invalid_data(/:reference for SCOR.*5 and 25/)
-          data[:reference] = 'RFa' * 9
+          data[:reference] = +'RFa' * 9
           assert_invalid_data(/:reference for SCOR.*5 and 25/)
-          data[:reference] = 'RF123323;ö'
+          data[:reference] = +'RF123323;ö'
           assert_invalid_data(/:reference for SCOR.*alpha-numeric/)
-          data[:reference] = 'a' * 20
+          data[:reference] = +'a' * 20
           assert_invalid_data(/:reference for SCOR must start.*RF/)
-          data[:reference] = 'RFabcdefgh'
+          data[:reference] = +'RFabcdefgh'
           assert_invalid_data(/:reference for SCOR must start.*RF and check digits/)
-          data[:reference] = 'RF 48 5000056789012345d'
+          data[:reference] = +'RF 48 5000056789012345d'
           assert_invalid_data(/:reference for SCOR has invalid check digits/)
-          data[:reference] = 'RF 48 5000056789012345'
+          data[:reference] = +'RF 48 5000056789012345'
           assert(create_box(data))
         end
 
@@ -226,7 +226,7 @@ describe HexaPDF::Extras::Layout::SwissQRBill do
 
     it "works with all information filled in" do
       data[:reference_type] = 'QRR'
-      data[:reference] = '210000000 0031394 71430009017'
+      data[:reference] = +'210000000 0031394 71430009017'
       data[:message] = 'Please just pay the bills, Jim!'
       data[:billing_information] = '//S/hit/30/50/what/do/I/do/'
       data[:alternative_schemes] = 'ebill/here/comes/data'
@@ -237,7 +237,7 @@ describe HexaPDF::Extras::Layout::SwissQRBill do
       data.delete(:debtor)
       data.delete(:amount)
       data[:reference_type] = 'SCOR'
-      data[:reference] = 'RF48 5000056789012345'
+      data[:reference] = +'RF48 5000056789012345'
       assert(@composer.box(:swiss_qr_bill, data: data))
     end
 
